@@ -21,7 +21,7 @@ jobs:
 
     - name: Merge master branch into feature branch
       run: |
-        git merge origin/master --no-commit --no-ff
+        git merge origin/master --no-commit --no-ff --allow-unrelated-histories
 
     - name: Remove all files except specific ones
       run: |
