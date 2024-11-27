@@ -1,0 +1,35 @@
+name: Update Feature Branch
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  update-branch:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout master branch
+      uses: actions/checkout@v2
+      with:
+        ref: master
+
+    - name: Checkout Tsundere_use
+      run: |
+        git fetch --all
+        git checkout Tsundere_use
+
+    - name: Merge master branch into feature branch
+      run: |
+        git merge origin/master --no-commit --no-ff
+
+    - name: Remove all files except specific ones
+      run: |
+        git rm -rf .
+        git reset --refresh
+        git add glm/
+        git commit -m "Sync with main branch and clean up"
+
+    - name: Push changes to Tsundere_use branch
+      run: |
+        git push origin Tsundere_use
